@@ -3,17 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RenHasu</title>
-<meta name="description" content="RenHasu — projects, tools, and products built by Kamal Kumar Jena.">
-<meta property="og:title" content="RenHasu">
+<title>Kamnej</title>
+<meta name="description" content="Kamnej — projects, tools, and products built by Kamal Kumar Jena.">
+<meta property="og:title" content="Kamnej">
 <meta property="og:description" content="Projects, tools, and products built by Kamal Kumar Jena.">
 <meta property="og:type" content="website">
-<!-- Once your site is live, uncomment this and set the full URL (e.g. https://renhasu.vercel.app/images/profile-pic.png) so shared links show a preview image -->
-<!-- <meta property="og:image" content="https://YOUR-DOMAIN/images/profile-pic.png"> -->
+<meta property="og:image" content="https://kamnej.vercel.app/images/profile-pic.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RenHasu">
+<meta name="twitter:title" content="Kamnej">
 <meta name="twitter:description" content="Projects, tools, and products built by Kamal Kumar Jena.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230D1210'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Arial, sans-serif' font-weight='700' fill='%23E85D75' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230D1210'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Arial, sans-serif' font-weight='700' fill='%23E85D75' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -79,12 +78,44 @@
     align-items: center;
     height: 64px;
     max-width: 960px;
+    position: relative;
   }
   .brand { font-size: 1.1rem; }
   .brand span { color: var(--accent); }
   .nav-links { display: flex; gap: 28px; font-size: 0.92rem; }
   .nav-links a { text-decoration: none; color: var(--muted); }
   .nav-links a:hover { color: var(--text); }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--text);
+    padding: 8px 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  @media (max-width: 640px) {
+    .nav-toggle { display: block; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      flex-direction: column;
+      gap: 0;
+      padding: 8px 24px 16px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .nav-links a:last-child { border-bottom: none; }
+  }
 
   /* PAGE BACKGROUND — fixed, crossfades between two images as you scroll */
   .bg-layers {
@@ -382,8 +413,9 @@
 
 <nav>
   <div class="wrap">
-    <div class="brand">Ren<span>Hasu</span></div>
-    <div class="nav-links">
+    <div class="brand">Kam<span>Nej</span></div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <div class="nav-links" id="nav-links">
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#products">Products</a>
@@ -451,7 +483,7 @@
       </div>
       <div id="term-output"></div>
       <div class="term-input-row">
-        <span class="term-prompt">renhasu&gt;</span>
+        <span class="term-prompt">kamnej&gt;</span>
         <input id="term-input" type="text" autocomplete="off" spellcheck="false" aria-label="Terminal command input">
       </div>
     </div>
@@ -460,7 +492,7 @@
 
 <footer>
   <div class="wrap">
-    <span>© <span id="year"></span> RenHasu</span>
+    <span>© <span id="year"></span> Kamnej</span>
     <div class="foot-links">
       <a href="mailto:kamaljena2304@gmail.com">Email</a>
       <a href="https://linkedin.com/in/kamal-kumar-jena" target="_blank" rel="noopener">LinkedIn</a>
@@ -505,6 +537,20 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // ---- Mobile nav toggle ----
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
   // ---- EDIT THIS: your real GitHub projects ----
   // Set "repo" to your real repo URL once it exists. Leave it as null to show "Coming soon" instead of a link.
   const projects = [
@@ -534,7 +580,7 @@
 
   // ---- EDIT THIS: your real Gumroad products ----
   const products = [
-    { name: "Indian Creator Starter Pack", price: "₹799", desc: "Notion bundle — content calendar, brand tone guide, caption templates.", link: "https://notionbyrenhasu.gumroad.com/l/nyyjd" },
+    { name: "Indian Creator Starter Pack", price: "₹799", desc: "Notion bundle — content calendar, brand tone guide, caption templates.", link: "https://notionbyneel.gumroad.com/l/nyyjd" },
   ];
   const list = document.getElementById('products-list');
   products.forEach(p => {
@@ -582,7 +628,7 @@
 
   function handleCommand(raw) {
     const trimmed = raw.trim();
-    printLine("renhasu> " + trimmed, "cmd-echo");
+    printLine("kamnej> " + trimmed, "cmd-echo");
     if (!trimmed) return;
     const [cmd] = trimmed.split(" ");
 
@@ -634,7 +680,7 @@
 
   // ---- Admin panel ----
   // Change this password to whatever you like. Remember: not real security (see note in the panel).
-  const ADMIN_PASSWORD = "renhasu2026";
+  const ADMIN_PASSWORD = "kamnej2026";
 
   const params = new URLSearchParams(window.location.search);
   if (params.get('admin') === 'true') {
