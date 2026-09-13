@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RenHasu</title>
+<meta name="description" content="RenHasu — projects, tools, and products built by Kamal Kumar Jena.">
+<meta property="og:title" content="RenHasu">
+<meta property="og:description" content="Projects, tools, and products built by Kamal Kumar Jena.">
+<meta property="og:type" content="website">
+<!-- Once your site is live, uncomment this and set the full URL (e.g. https://renhasu.vercel.app/images/profile-pic.png) so shared links show a preview image -->
+<!-- <meta property="og:image" content="https://YOUR-DOMAIN/images/profile-pic.png"> -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RenHasu">
+<meta name="twitter:description" content="Projects, tools, and products built by Kamal Kumar Jena.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230D1210'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Arial, sans-serif' font-weight='700' fill='%23E85D75' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0D1210;
+    --surface: #161C19;
+    --surface-2: #1E2622;
+    --line: #2A332E;
+    --text: #E8ECE9;
+    --muted: #8A9690;
+    --accent: #E85D75;
+    --accent-dim: #7A3A44;
+    --term-green: #7FDBA0;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, .brand {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    background: rgba(13, 18, 16, 0.9);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+    z-index: 10;
+  }
+  nav .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    max-width: 960px;
+  }
+  .brand { font-size: 1.1rem; }
+  .brand span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; font-size: 0.92rem; }
+  .nav-links a { text-decoration: none; color: var(--muted); }
+  .nav-links a:hover { color: var(--text); }
+
+  /* PAGE BACKGROUND — fixed, crossfades between two images as you scroll */
+  .bg-layers {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+  }
+  .bg-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 0.1s linear;
+  }
+  #bg-layer-1 { background-image: url('images/hero-bg1.png'); opacity: 1; }
+  #bg-layer-2 { background-image: url('images/hero-bg2.png'); opacity: 0; }
+  .bg-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(13,18,16,0.55) 0%, rgba(13,18,16,0.92) 40%, rgba(13,18,16,0.98) 100%);
+    pointer-events: none;
+  }
+
+  /* HERO */
+  header.hero {
+    padding: 120px 0 96px;
+    position: relative;
+  }
+  header.hero .wrap { max-width: 960px; position: relative; }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 1.1;
+    margin: 0 0 32px;
+    max-width: 14ch;
+  }
+  .hero-links { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* ABOUT */
+  .about-text {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 58ch;
+  }
+  .about-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+    }
+    #about-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--surface) url('images/profile-pic.png') center/cover no-repeat;
+    border: 1px solid var(--line);
+    }
+  .btn {
+    display: inline-block;
+    padding: 11px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: 1px solid var(--line);
+    background: none;
+    color: var(--text);
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .btn.primary { background: var(--accent); color: #1a0a0d; border-color: var(--accent); }
+  .btn.primary:hover { background: #f0778c; }
+  .btn.ghost { color: var(--text); background: none; }
+  .btn.ghost:hover { border-color: var(--muted); }
+
+  section { padding: 64px 0; max-width: 960px; margin: 0 auto; }
+  section .wrap { max-width: 960px; }
+  section h2 {
+    font-size: 1.5rem;
+    margin: 0 0 8px;
+  }
+  .section-sub { color: var(--muted); margin: 0 0 36px; font-size: 0.98rem; }
+  section + section { border-top: 1px solid var(--line); }
+
+  /* PROJECTS - asymmetric grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px;
+    grid-column: span 3;
+  }
+  .project-card.wide { grid-column: span 4; }
+  .project-card.narrow { grid-column: span 2; }
+  .project-card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .project-card p { margin: 0 0 14px; color: var(--muted); font-size: 0.92rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .project-card a.repo-link {
+    font-size: 0.88rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .project-card a.repo-link:hover { text-decoration: underline; }
+  .project-card .repo-link.muted { color: var(--muted); cursor: default; }
+
+  @media (max-width: 640px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card, .project-card.wide, .project-card.narrow { grid-column: span 1; }
+  }
+
+  /* PRODUCTS */
+  .products-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .product-row {
+    background: var(--surface);
+    padding: 20px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .product-row h3 { margin: 0 0 4px; font-size: 1rem; }
+  .product-row p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+  .price { font-family: 'IBM Plex Mono', monospace; color: var(--accent); font-size: 0.95rem; white-space: nowrap; }
+  .games-placeholder {
+    margin-top: 16px;
+    padding: 18px 22px;
+    border: 1px dashed var(--line);
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  /* LINKEDIN */
+    .li-card {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    background: transparent;
+    border: none;
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    }
+    .li-card iframe { max-width: 100%; display: block; }
+
+  /* TERMINAL */
+  .terminal-section { max-width: none; padding: 64px 0 88px; }
+  .terminal-section .wrap { max-width: 880px; }
+  .term-window {
+    background: #0A0E0C;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .term-chrome {
+    background: var(--surface-2);
+    padding: 10px 14px;
+    display: flex;
+    gap: 7px;
+  }
+  .term-dot { width: 11px; height: 11px; border-radius: 50%; }
+  .term-dot.r { background: #ff5f56; }
+  .term-dot.y { background: #ffbd2e; }
+  .term-dot.g { background: #27c93f; }
+  #term-output {
+    padding: 20px;
+    height: 320px;
+    overflow-y: auto;
+    font-size: 0.88rem;
+    color: var(--term-green);
+    white-space: pre-wrap;
+  }
+  #term-output .line { margin-bottom: 4px; }
+  #term-output .cmd-echo { color: var(--text); }
+  #term-output .muted { color: var(--muted); }
+  .term-input-row {
+    display: flex;
+    align-items: center;
+    padding: 0 20px 18px;
+    gap: 8px;
+  }
+  .term-prompt { color: var(--term-green); font-size: 0.88rem; }
+  #term-input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.88rem;
+    outline: none;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 40px 0 60px;
+  }
+  footer .wrap {
+    max-width: 960px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+  footer .foot-links { display: flex; gap: 18px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--text); }
+
+  /* ADMIN PANEL */
+  #admin-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 7, 6, 0.92);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .admin-box {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 32px;
+    width: 100%;
+    max-width: 480px;
+  }
+  .admin-box h2 { margin: 0 0 6px; font-size: 1.2rem; }
+  .admin-box .section-sub { margin-bottom: 22px; font-size: 0.88rem; }
+  .admin-box label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 16px 0 6px;
+  }
+  .admin-box input[type="text"],
+  .admin-box input[type="password"],
+  .admin-box input[type="url"],
+  .admin-box textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem;
+    padding: 10px 12px;
+  }
+  .admin-box textarea { resize: vertical; min-height: 80px; }
+  .admin-box .btn { margin-top: 20px; cursor: pointer; font-family: inherit; }
+  .admin-box .btn:not(:last-child) { margin-right: 10px; }
+  .admin-error { color: var(--accent); font-size: 0.85rem; margin-top: 10px; display: none; }
+  #admin-output {
+    margin-top: 18px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    white-space: pre-wrap;
+    display: none;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+</style>
+</head>
+<body>
+
+<!-- Fixed background: crossfades from hero-bg.jpg to hero-bg-2.jpg as you scroll down the page -->
+<div class="bg-layers" aria-hidden="true">
+  <div class="bg-layer" id="bg-layer-1"></div>
+  <div class="bg-layer" id="bg-layer-2"></div>
+</div>
+<div class="bg-overlay" aria-hidden="true"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Ren<span>Hasu</span></div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#products">Products</a>
+      <a href="#linkedin">Writing</a>
+      <a href="#terminal">Terminal</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Building software, learning by shipping, and improving one project at a time.</h1>
+    <div class="hero-links">
+      <a class="btn primary" href="#products">See products</a>
+      <a class="btn ghost" href="https://github.com/Kamal-Kumar-Jena" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+  <!-- Background images: images/hero-bg1.png shows at the top; it crossfades into images/hero-bg2.png as you scroll down. Change these in the CSS under "PAGE BACKGROUND" if you swap images later. -->
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <div class="about-grid">
+      <p class="about-text">I'm a developer focused on building useful software and learning by shipping. I started with Python and desktop apps, and I'm now expanding into web development, APIs, databases, and the fundamentals of software engineering. I'm building projects, improving them through iteration, and preparing for the next stage of my journey in CSE.</p>
+      <div id="about-photo"></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <p class="section-sub">A selection of projects I’m building and rebuilding as I level up.</p>
+    <div class="projects-grid" id="projects-grid"></div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="wrap">
+    <h2>Products</h2>
+    <p class="section-sub">Tools and digital products will live here as I start shipping them.</p>
+    <div class="products-list" id="products-list"></div>
+    <div class="games-placeholder">More tools and games coming soon.</div>
+  </div>
+</section>
+
+<section id="linkedin">
+  <div class="wrap">
+    <h2>Latest post</h2>
+    <p class="section-sub">This space will feature selected writing and build updates as I start posting consistently.</p>
+    <div class="li-card" id="li-embed-container">
+      <p style="color: var(--muted); margin: 0;">LinkedIn updates will appear here once I start publishing them.</p>
+    </div>
+  </div>
+</section>
+
+<section class="terminal-section" id="terminal">
+  <div class="wrap">
+    <h2>Try it</h2>
+    <p class="section-sub">Type <code>help</code> to see what this does.</p>
+    <div class="term-window">
+      <div class="term-chrome">
+        <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
+      </div>
+      <div id="term-output"></div>
+      <div class="term-input-row">
+        <span class="term-prompt">renhasu&gt;</span>
+        <input id="term-input" type="text" autocomplete="off" spellcheck="false" aria-label="Terminal command input">
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> RenHasu</span>
+    <div class="foot-links">
+      <a href="mailto:kamaljena2304@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/kamal-kumar-jena" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Kamal-Kumar-Jena" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ADMIN PANEL: only appears when the URL has ?admin=true at the end -->
+<div id="admin-overlay" style="display:none;">
+  <div class="admin-box">
+
+    <div id="admin-login">
+      <h2>Admin</h2>
+      <p class="section-sub">This is a soft gate, not real security — anyone who reads the page's code can find the password. Don't put anything truly sensitive behind it.</p>
+      <label for="admin-pass">Password</label>
+      <input type="password" id="admin-pass" autocomplete="off">
+      <div class="admin-error" id="admin-error">Wrong password.</div>
+      <button class="btn primary" id="admin-login-btn">Enter</button>
+    </div>
+
+    <div id="admin-form" style="display:none;">
+      <h2>Update LinkedIn post</h2>
+      <p class="section-sub">Paste a LinkedIn embed here when you have a post you want featured.</p>
+
+      <label for="admin-embed">LinkedIn embed code</label>
+      <textarea id="admin-embed" placeholder="Paste the full embed code from LinkedIn's 'Embed this post' option" style="min-height: 140px;"></textarea>
+
+      <button class="btn primary" id="admin-generate-btn">Generate code</button>
+      <button class="btn ghost" id="admin-close-btn">Close</button>
+
+      <div id="admin-output"></div>
+
+      <p class="section-sub" style="margin-top:18px; margin-bottom:0;">
+        Once you've copied the code above: <a href="https://github.com/Kamal-Kumar-Jena" target="_blank" rel="noopener" style="color: var(--accent);">open your GitHub profile →</a> and paste it in via "Add file → Upload files", or edit the file directly on GitHub.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- EDIT THIS: your real GitHub projects ----
+  // Set "repo" to your real repo URL once it exists. Leave it as null to show "Coming soon" instead of a link.
+  const projects = [
+    { name: "Calculator v2", desc: "A cleaner desktop calculator rebuilt with a more polished GUI and better interaction.", tags: ["Python", "CustomTkinter", "GUI"], repo: null, size: "wide" },
+    { name: "Weather App v2", desc: "A planned web-first weather app focused on a cleaner interface and real-time API data.", tags: ["HTML", "CSS", "JavaScript", "API"], repo: null, size: "narrow" },
+    { name: "Quiz App v2", desc: "A planned rebuild with a stronger data layer, REST APIs, and a more complete quiz experience.", tags: ["Python", "Flask", "SQLite", "REST API"], repo: null, size: "" },
+    { name: "Password Generator", desc: "A practical utility for generating customizable passwords while learning cleaner project structure.", tags: ["Python", "Security Basics", "GUI"], repo: null, size: "narrow" },
+    { name: "To-Do App", desc: "A simple task-management project designed to practice CRUD flows, state, and a clean UI.", tags: ["HTML", "CSS", "JavaScript"], repo: null, size: "narrow" },
+    { name: "Student Helper", desc: "An earlier learning project kept as an archive to document where the coding journey started.", tags: ["Python", "Tkinter", "Archive"], repo: "https://github.com/Kamal-Kumar-Jena-2308/TWT-Code-Jam-by-Awesome-Pythoners--Theme-For-Students", size: "wide" },
+  ];
+
+  const grid = document.getElementById('projects-grid');
+  projects.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'project-card' + (p.size ? ' ' + p.size : '');
+    const linkHtml = p.repo
+      ? `<a class="repo-link" href="${p.repo}" target="_blank" rel="noopener">View repo →</a>`
+      : `<span class="repo-link muted">Coming soon</span>`;
+    card.innerHTML = `
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      ${linkHtml}
+    `;
+    grid.appendChild(card);
+  });
+
+  // ---- EDIT THIS: your real Gumroad products ----
+  const products = [
+    { name: "Indian Creator Starter Pack", price: "₹799", desc: "Notion bundle — content calendar, brand tone guide, caption templates.", link: "https://notionbyrenhasu.gumroad.com/l/nyyjd" },
+  ];
+  const list = document.getElementById('products-list');
+  products.forEach(p => {
+    const row = document.createElement('div');
+    row.className = 'product-row';
+    row.innerHTML = `
+      <div>
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+      </div>
+      <a class="price" href="${p.link}" target="_blank" rel="noopener">${p.price} →</a>
+    `;
+    list.appendChild(row);
+  });
+
+  // ---- EDIT THIS: your latest LinkedIn post ----
+  // Paste your LinkedIn "Embed this post" code here (or use the admin panel to generate this line).
+  document.getElementById('li-embed-container').innerHTML = `<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7504361832980058112?collapsed=1" height="628" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>`;
+
+  // ---- Terminal ----
+  const output = document.getElementById('term-output');
+  const input = document.getElementById('term-input');
+
+  // Edit this with your real contact details
+  const contactInfo = {
+    email: "kamaljena2304@gmail.com",
+    linkedin: "https://linkedin.com/in/kamal-kumar-jena",
+    github: "https://github.com/Kamal-Kumar-Jena"
+  };
+
+  function printLine(text, cls = '') {
+    const div = document.createElement('div');
+    div.className = 'line' + (cls ? ' ' + cls : '');
+    div.textContent = text;
+    output.appendChild(div);
+    output.scrollTop = output.scrollHeight;
+  }
+
+  function printHelp() {
+    printLine("Available commands:");
+    printLine("  help       show this list");
+    printLine("  contact    how to reach me");
+    printLine("  clear      clear the screen");
+  }
+
+  function handleCommand(raw) {
+    const trimmed = raw.trim();
+    printLine("renhasu> " + trimmed, "cmd-echo");
+    if (!trimmed) return;
+    const [cmd] = trimmed.split(" ");
+
+    switch (cmd.toLowerCase()) {
+      case "help":
+        printHelp();
+        break;
+      case "clear":
+        output.innerHTML = "";
+        break;
+      case "contact":
+        printLine(`Email:    ${contactInfo.email}`);
+        printLine(`LinkedIn: ${contactInfo.linkedin}`);
+        printLine(`GitHub:   ${contactInfo.github}`);
+        break;
+      default:
+        printLine(`Command not found: ${cmd}. Type "help" for a list.`, "muted");
+    }
+  }
+
+  printLine("Welcome. Type \"help\" to get started.", "muted");
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      handleCommand(input.value);
+      input.value = '';
+    }
+  });
+
+  document.querySelector('.term-window').addEventListener('click', () => input.focus());
+
+  // ---- Scroll-linked background crossfade ----
+  const bgLayer2 = document.getElementById('bg-layer-2');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function updateBackgroundFade() {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+    bgLayer2.style.opacity = Math.min(Math.max(progress, 0), 1);
+  }
+
+  if (!prefersReducedMotion) {
+    window.addEventListener('scroll', updateBackgroundFade, { passive: true });
+    updateBackgroundFade();
+  } else {
+    // Respect reduced-motion: just show the second image statically, no fade animation
+    bgLayer2.style.opacity = 0;
+  }
+
+  // ---- Admin panel ----
+  // Change this password to whatever you like. Remember: not real security (see note in the panel).
+  const ADMIN_PASSWORD = "renhasu2026";
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('admin') === 'true') {
+    document.getElementById('admin-overlay').style.display = 'flex';
+  }
+
+  document.getElementById('admin-login-btn').addEventListener('click', () => {
+    const entered = document.getElementById('admin-pass').value;
+    if (entered === ADMIN_PASSWORD) {
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('admin-form').style.display = 'block';
+    } else {
+      document.getElementById('admin-error').style.display = 'block';
+    }
+  });
+
+  document.getElementById('admin-close-btn').addEventListener('click', () => {
+    document.getElementById('admin-overlay').style.display = 'none';
+  });
+
+  document.getElementById('admin-generate-btn').addEventListener('click', () => {
+    const embedCode = document.getElementById('admin-embed').value.trim() || "[PASTE YOUR LINKEDIN EMBED CODE HERE]";
+
+    // Escape backticks and ${...} so the pasted embed code can't break out of the template literal
+    const escaped = embedCode.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
+
+    const code = `document.getElementById('li-embed-container').innerHTML = \`${escaped}\`;`;
+
+    const output = document.getElementById('admin-output');
+    output.textContent = code;
+    output.style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
