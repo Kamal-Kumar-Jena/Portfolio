@@ -3,17 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kamnej</title>
-<meta name="description" content="Kamnej — projects, tools, and products built by Kamal Kumar Jena.">
-<meta property="og:title" content="Kamnej">
-<meta property="og:description" content="Projects, tools, and products built by Kamal Kumar Jena.">
+<title>KamNej — Independent Creative Studio</title>
+<meta name="description" content="KamNej is an independent creative studio building digital products, software, and games by Kamal Jena.">
+<meta property="og:title" content="KamNej — Independent Creative Studio">
+<meta property="og:description" content="KamNej is an independent creative studio building digital products, software, and games by Kamal Jena.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://kamnej.vercel.app/images/profile-pic.png">
+<meta property="og:image" content="https://kamnej.vercel.app/images/port/profile-pic.webp">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kamnej">
-<meta name="twitter:description" content="Projects, tools, and products built by Kamal Kumar Jena.">
+<meta name="twitter:title" content="KamNej — Independent Creative Studio">
+<meta name="twitter:description" content="KamNej is an independent creative studio building digital products, software, and games by Kamal Jena.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230D1210'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Arial, sans-serif' font-weight='700' fill='%23E85D75' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -21,10 +22,12 @@
     --surface: #161C19;
     --surface-2: #1E2622;
     --line: #2A332E;
+    --line-bright: #3C4A43;
     --text: #E8ECE9;
     --muted: #8A9690;
     --accent: #E85D75;
     --accent-dim: #7A3A44;
+    --lavender: #B6A6D9;
     --term-green: #7FDBA0;
   }
 
@@ -38,6 +41,7 @@
     color: var(--text);
     font-family: 'IBM Plex Sans', sans-serif;
     line-height: 1.6;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, .brand {
@@ -47,6 +51,7 @@
   }
 
   a { color: inherit; }
+  img { max-width: 100%; display: block; }
 
   :focus-visible {
     outline: 2px solid var(--accent);
@@ -58,7 +63,7 @@
   }
 
   .wrap {
-    max-width: 880px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 0 24px;
   }
@@ -77,14 +82,37 @@
     justify-content: space-between;
     align-items: center;
     height: 64px;
-    max-width: 960px;
     position: relative;
   }
-  .brand { font-size: 1.1rem; }
+  .brand { font-size: 1.1rem; text-decoration: none; }
   .brand span { color: var(--accent); }
+  .nav-right { display: flex; align-items: center; gap: 28px; }
   .nav-links { display: flex; gap: 28px; font-size: 0.92rem; }
-  .nav-links a { text-decoration: none; color: var(--muted); }
+  .nav-links a { text-decoration: none; color: var(--muted); position: relative; padding: 4px 0; transition: color 0.15s ease; }
   .nav-links a:hover { color: var(--text); }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+  .nav-links a:hover::after,
+  .nav-links a.active::after { transform: scaleX(1); }
+  .nav-links a.active { color: var(--text); }
+  .nav-external { display: flex; gap: 16px; font-size: 0.88rem; }
+  .nav-external a {
+    text-decoration: none;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: 7px 14px;
+    border-radius: 6px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .nav-external a:hover { color: var(--text); border-color: var(--line-bright); }
 
   .nav-toggle {
     display: none;
@@ -98,9 +126,9 @@
     line-height: 1;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 720px) {
     .nav-toggle { display: block; }
-    .nav-links {
+    .nav-right {
       display: none;
       position: absolute;
       top: 100%;
@@ -109,15 +137,20 @@
       background: var(--bg);
       border-bottom: 1px solid var(--line);
       flex-direction: column;
+      align-items: stretch;
       gap: 0;
-      padding: 8px 24px 16px;
+      padding: 8px 24px 20px;
     }
-    .nav-links.open { display: flex; }
+    .nav-right.open { display: flex; }
+    .nav-links { flex-direction: column; gap: 0; }
     .nav-links a { padding: 12px 0; border-bottom: 1px solid var(--line); }
-    .nav-links a:last-child { border-bottom: none; }
+    .nav-links a::after { display: none; }
+    .nav-external { margin-top: 14px; }
   }
 
-  /* PAGE BACKGROUND — fixed, crossfades between two images as you scroll */
+  /* PAGE BACKGROUND — day image crossfades into the night image across the hero,
+     then holds steady as a dark image for the rest of the page (see JS: fade
+     distance is bounded to ~1.5x viewport height, not the full scroll length). */
   .bg-layers {
     position: fixed;
     inset: 0;
@@ -131,54 +164,38 @@
     background-position: center;
     transition: opacity 0.1s linear;
   }
-  #bg-layer-1 { background-image: url('images/hero-bg1.png'); opacity: 1; }
-  #bg-layer-2 { background-image: url('images/hero-bg2.png'); opacity: 0; }
+  #bg-layer-1 { background-image: url('images/port/hero-bg1.webp'); opacity: 1; }
+  #bg-layer-2 { background-image: url('images/port/hero-bg2.webp'); opacity: 0; }
   .bg-overlay {
     position: fixed;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(180deg, rgba(13,18,16,0.55) 0%, rgba(13,18,16,0.92) 40%, rgba(13,18,16,0.98) 100%);
+    background: linear-gradient(180deg, rgba(13,18,16,0.55) 0%, rgba(13,18,16,0.95) 55%, rgba(13,18,16,0.99) 100%);
     pointer-events: none;
   }
 
   /* HERO */
   header.hero {
-    padding: 120px 0 96px;
+    padding: 130px 0 100px;
     position: relative;
   }
-  header.hero .wrap { max-width: 960px; position: relative; }
+  header.hero .wrap { max-width: 720px; }
   .hero h1 {
-    font-size: clamp(2.2rem, 5vw, 3.4rem);
-    line-height: 1.1;
+    font-size: clamp(2.4rem, 6vw, 3.8rem);
+    line-height: 1.08;
+    margin: 0 0 20px;
+  }
+  .hero-lede {
+    font-size: 1.15rem;
+    color: var(--text);
+    max-width: 46ch;
     margin: 0 0 32px;
-    max-width: 14ch;
   }
   .hero-links { display: flex; gap: 16px; flex-wrap: wrap; }
 
-  /* ABOUT */
-  .about-text {
-    font-size: 1.05rem;
-    color: var(--muted);
-    max-width: 58ch;
-  }
-  .about-grid {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-    }
-    #about-photo {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    background: var(--surface) url('images/profile-pic.png') center/cover no-repeat;
-    border: 1px solid var(--line);
-    }
   .btn {
     display: inline-block;
-    padding: 11px 20px;
+    padding: 11px 22px;
     border-radius: 6px;
     text-decoration: none;
     font-size: 0.95rem;
@@ -188,47 +205,147 @@
     color: var(--text);
     font-family: inherit;
     cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
   }
   .btn.primary { background: var(--accent); color: #1a0a0d; border-color: var(--accent); }
-  .btn.primary:hover { background: #f0778c; }
+  .btn.primary:hover { background: #f0778c; transform: translateY(-1px); }
   .btn.ghost { color: var(--text); background: none; }
-  .btn.ghost:hover { border-color: var(--muted); }
+  .btn.ghost:hover { border-color: var(--line-bright); transform: translateY(-1px); }
+  .btn.small { padding: 8px 16px; font-size: 0.88rem; }
 
-  section { padding: 64px 0; max-width: 960px; margin: 0 auto; }
+  section { padding: 72px 0; max-width: 960px; margin: 0 auto; }
   section .wrap { max-width: 960px; }
   section h2 {
-    font-size: 1.5rem;
+    font-size: 1.65rem;
     margin: 0 0 8px;
   }
-  .section-sub { color: var(--muted); margin: 0 0 36px; font-size: 0.98rem; }
+  .section-sub { color: var(--muted); margin: 0 0 40px; font-size: 0.98rem; max-width: 56ch; }
   section + section { border-top: 1px solid var(--line); }
 
-  /* PROJECTS - asymmetric grid */
+  /* STUDIO CATEGORIES — editorial numbered list, not identical SaaS cards */
+  .categories-list { border-top: 1px solid var(--line); }
+  .category-row {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 24px;
+    align-items: baseline;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .category-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .category-row h3 { margin: 0 0 6px; font-size: 1.15rem; }
+  .category-row p { margin: 0; color: var(--muted); font-size: 0.94rem; max-width: 52ch; }
+  .category-status {
+    align-self: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--lavender);
+    border: 1px solid var(--accent-dim);
+    padding: 4px 11px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  @media (max-width: 640px) {
+    .category-row { grid-template-columns: 40px 1fr; }
+    .category-status { grid-column: 2; margin-top: 10px; width: fit-content; }
+  }
+
+  /* SELECTED WORK / EXPERIMENTS */
+  .work-group { margin-bottom: 44px; }
+  .work-group:last-child { margin-bottom: 0; }
+  .work-group h3 {
+    font-size: 0.92rem;
+    color: var(--muted);
+    font-weight: 500;
+    margin: 0 0 18px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.02em;
+  }
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
+  .projects-grid.featured { grid-template-columns: 1fr; }
   .project-card {
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 8px;
-    padding: 22px;
-    grid-column: span 3;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.18s ease, border-color 0.18s ease;
   }
-  .project-card.wide { grid-column: span 4; }
-  .project-card.narrow { grid-column: span 2; }
-  .project-card h3 { margin: 0 0 8px; font-size: 1.05rem; }
-  .project-card p { margin: 0 0 14px; color: var(--muted); font-size: 0.92rem; }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .project-card:hover { transform: translateY(-3px); border-color: var(--line-bright); }
+  .project-card.featured { flex-direction: row; align-items: stretch; }
+  .project-shot {
+    position: relative;
+    height: 160px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .project-card.featured .project-shot {
+    height: auto;
+    width: 42%;
+    flex-shrink: 0;
+    border-bottom: none;
+    border-right: 1px solid var(--line);
+  }
+  .project-shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .shot-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+    background:
+      repeating-linear-gradient(135deg, var(--surface-2) 0 12px, var(--bg) 12px 24px);
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-family: 'IBM Plex Mono', monospace;
+    text-align: center;
+    padding: 12px;
+  }
+  .project-body { padding: 22px 24px; flex: 1; display: flex; flex-direction: column; }
+  .project-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+  .project-card h4 { margin: 0; font-size: 1.05rem; font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
+  .project-category { color: var(--muted); font-size: 0.82rem; margin: 0 0 10px; }
+  .status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    white-space: nowrap;
+    padding: 3px 9px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+  }
+  .status.live { color: var(--term-green); border-color: #2c4a37; }
+  .status.progress { color: var(--lavender); border-color: var(--accent-dim); }
+  .status.experiment { color: var(--muted); border-color: var(--line); }
+  .status.archived { color: var(--muted); border-color: var(--line); }
+  .project-card p.desc { margin: 0 0 14px; color: var(--muted); font-size: 0.9rem; flex: 1; }
+  .project-card.featured p.desc { font-size: 0.96rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
   .tag {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--muted);
     border: 1px solid var(--line);
     padding: 2px 8px;
     border-radius: 4px;
   }
+  .project-links { display: flex; gap: 18px; align-items: center; }
   .project-card a.repo-link {
     font-size: 0.88rem;
     color: var(--accent);
@@ -237,50 +354,172 @@
   .project-card a.repo-link:hover { text-decoration: underline; }
   .project-card .repo-link.muted { color: var(--muted); cursor: default; }
 
-  @media (max-width: 640px) {
+  .archive-toggle {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+  }
+  .archive-toggle:hover { text-decoration: underline; }
+  #archive-grid { margin-top: 18px; }
+  #archive-grid[hidden] { display: none; }
+
+  @media (max-width: 720px) {
     .projects-grid { grid-template-columns: 1fr; }
-    .project-card, .project-card.wide, .project-card.narrow { grid-column: span 1; }
+    .project-card.featured { flex-direction: column; }
+    .project-card.featured .project-shot { width: 100%; height: 180px; border-right: none; border-bottom: 1px solid var(--line); }
   }
 
-  /* PRODUCTS */
-  .products-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-  .product-row {
+  /* PRODUCTS — large, editorial, image-first showcase */
+  .product-feature {
     background: var(--surface);
-    padding: 20px 22px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 36px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 28px;
+    transition: border-color 0.18s ease;
+  }
+  .product-feature:hover { border-color: var(--line-bright); }
+
+  .product-copy { max-width: 60ch; }
+  .product-label {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .product-copy h3 { margin: 0 0 10px; font-size: 1.3rem; }
+  .product-copy > p { margin: 0; color: var(--muted); font-size: 0.98rem; }
+
+  /* The image is the centerpiece: full-width, own aspect ratio, no crop */
+  .product-image-wrap {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.28);
+  }
+  .product-image-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+  /* Fallback shown until a real cover image exists — sized like a real
+     product cover (roughly 16:10) rather than a thumbnail, so the layout
+     reads the same once a real image is dropped in. */
+  .product-image-fallback {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    display: flex;
     align-items: center;
-    gap: 16px;
+    justify-content: center;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(182,166,217,0.22), transparent 55%),
+      linear-gradient(150deg, var(--accent-dim), var(--surface-2) 80%);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--lavender);
+    text-align: center;
+    padding: 0 24px;
+  }
+
+  .product-included {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+  }
+  .product-included li {
+    color: var(--muted);
+    font-size: 0.92rem;
+    padding-left: 18px;
+    position: relative;
+  }
+  .product-included li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .product-cta { align-self: flex-start; }
+
+  @media (max-width: 640px) {
+    .product-feature { padding: 26px 22px; gap: 22px; }
+  }
+
+  /* ABOUT */
+  .about-text {
+    font-size: 1.02rem;
+    color: var(--muted);
+    max-width: 60ch;
+    margin: 0 0 36px;
+  }
+  .founder-block {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 26px 28px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
     flex-wrap: wrap;
   }
-  .product-row h3 { margin: 0 0 4px; font-size: 1rem; }
-  .product-row p { margin: 0; color: var(--muted); font-size: 0.88rem; }
-  .price { font-family: 'IBM Plex Mono', monospace; color: var(--accent); font-size: 0.95rem; white-space: nowrap; }
-  .games-placeholder {
-    margin-top: 16px;
-    padding: 18px 22px;
-    border: 1px dashed var(--line);
-    border-radius: 8px;
-    color: var(--muted);
-    font-size: 0.9rem;
+  #about-photo {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+    border: 1px solid var(--line);
   }
+  .founder-copy { flex: 1; min-width: 200px; }
+  .founder-copy h3 { margin: 0 0 6px; font-size: 1rem; }
+  .founder-links { display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.88rem; }
+  .founder-links a { text-decoration: none; color: var(--accent); }
+  .founder-links a:hover { text-decoration: underline; }
 
-  /* LINKEDIN */
-    .li-card {
-    width: fit-content;
-    max-width: 100%;
-    margin: 0 auto;
-    background: transparent;
-    border: none;
-    padding: 0;
-    border-radius: 8px;
-    overflow: hidden;
-    }
-    .li-card iframe { max-width: 100%; display: block; }
+  /* BUILD UPDATES — native card, no iframe */
+  .update-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 26px 28px;
+    max-width: 560px;
+    transition: border-color 0.18s ease;
+  }
+  .update-card:hover { border-color: var(--line-bright); }
+  .update-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--lavender);
+    margin: 0 0 10px;
+  }
+  .update-card p.update-text { margin: 0 0 16px; font-size: 0.96rem; }
+  .update-card a.update-link { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+  .update-card a.update-link:hover { text-decoration: underline; }
 
   /* TERMINAL */
   .terminal-section { max-width: none; padding: 64px 0 88px; }
-  .terminal-section .wrap { max-width: 880px; }
+  .terminal-section .wrap { max-width: 780px; }
   .term-window {
     background: #0A0E0C;
     border: 1px solid var(--line);
@@ -300,11 +539,12 @@
   .term-dot.g { background: #27c93f; }
   #term-output {
     padding: 20px;
-    height: 320px;
+    height: 280px;
     overflow-y: auto;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     color: var(--term-green);
     white-space: pre-wrap;
+    overflow-wrap: anywhere;
   }
   #term-output .line { margin-bottom: 4px; }
   #term-output .cmd-echo { color: var(--text); }
@@ -315,14 +555,15 @@
     padding: 0 20px 18px;
     gap: 8px;
   }
-  .term-prompt { color: var(--term-green); font-size: 0.88rem; }
+  .term-prompt { color: var(--term-green); font-size: 0.86rem; }
   #term-input {
     flex: 1;
+    min-width: 0;
     background: none;
     border: none;
     color: var(--text);
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     outline: none;
   }
 
@@ -339,72 +580,15 @@
     color: var(--muted);
     font-size: 0.88rem;
   }
-  footer .foot-links { display: flex; gap: 18px; }
+  footer .foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
   footer a { text-decoration: none; }
   footer a:hover { color: var(--text); }
-
-  /* ADMIN PANEL */
-  #admin-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(5, 7, 6, 0.92);
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
-  .admin-box {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 32px;
-    width: 100%;
-    max-width: 480px;
-  }
-  .admin-box h2 { margin: 0 0 6px; font-size: 1.2rem; }
-  .admin-box .section-sub { margin-bottom: 22px; font-size: 0.88rem; }
-  .admin-box label {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin: 16px 0 6px;
-  }
-  .admin-box input[type="text"],
-  .admin-box input[type="password"],
-  .admin-box input[type="url"],
-  .admin-box textarea {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    color: var(--text);
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 0.92rem;
-    padding: 10px 12px;
-  }
-  .admin-box textarea { resize: vertical; min-height: 80px; }
-  .admin-box .btn { margin-top: 20px; cursor: pointer; font-family: inherit; }
-  .admin-box .btn:not(:last-child) { margin-right: 10px; }
-  .admin-error { color: var(--accent); font-size: 0.85rem; margin-top: 10px; display: none; }
-  #admin-output {
-    margin-top: 18px;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 14px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.8rem;
-    white-space: pre-wrap;
-    display: none;
-    max-height: 220px;
-    overflow-y: auto;
-  }
 </style>
 </head>
 <body>
 
-<!-- Fixed background: crossfades from hero-bg.jpg to hero-bg-2.jpg as you scroll down the page -->
+<!-- Fixed background: day image crossfades into the night image over the hero,
+     then stays put — see updateBackgroundFade() for the bounded fade distance. -->
 <div class="bg-layers" aria-hidden="true">
   <div class="bg-layer" id="bg-layer-1"></div>
   <div class="bg-layer" id="bg-layer-2"></div>
@@ -413,75 +597,100 @@
 
 <nav>
   <div class="wrap">
-    <div class="brand">Kam<span>Nej</span></div>
+    <a class="brand" href="#top">Kam<span>Nej</span></a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
-    <div class="nav-links" id="nav-links">
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#products">Products</a>
-      <a href="#linkedin">Writing</a>
-      <a href="#terminal">Terminal</a>
+    <div class="nav-right" id="nav-right">
+      <div class="nav-links" id="nav-links">
+        <a href="#work">Work</a>
+        <a href="#products">Products</a>
+        <a href="#experiments">Experiments</a>
+        <a href="#about">About</a>
+      </div>
+      <div class="nav-external">
+        <a href="https://github.com/Kamal-Kumar-Jena" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://notionbykamnej.gumroad.com/" target="_blank" rel="noopener">Gumroad</a>
+      </div>
     </div>
   </div>
 </nav>
 
-<header class="hero">
+<header class="hero" id="top">
   <div class="wrap">
-    <h1>Building software, learning by shipping, and improving one project at a time.</h1>
+    <h1>Small ideas. Useful things.</h1>
+    <p class="hero-lede">KamNej is an independent creative studio building digital products, software, and games.</p>
     <div class="hero-links">
-      <a class="btn primary" href="#products">See products</a>
-      <a class="btn ghost" href="https://github.com/Kamal-Kumar-Jena" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn primary" href="#work">Explore the work</a>
+      <a class="btn ghost" href="#products">View products</a>
     </div>
   </div>
-  <!-- Background images: images/hero-bg1.png shows at the top; it crossfades into images/hero-bg2.png as you scroll down. Change these in the CSS under "PAGE BACKGROUND" if you swap images later. -->
 </header>
 
-<section id="about">
+<section id="studio">
   <div class="wrap">
-    <h2>About</h2>
-    <div class="about-grid">
-      <p class="about-text">I'm a developer focused on building useful software and learning by shipping. I started with Python and desktop apps, and I'm now expanding into web development, APIs, databases, and the fundamentals of software engineering. I'm building projects, improving them through iteration, and preparing for the next stage of my journey in CSE.</p>
-      <div id="about-photo"></div>
+    <h2>What KamNej makes</h2>
+    <p class="section-sub">Three areas the studio works across, each at a different stage.</p>
+    <div class="categories-list" id="categories-list"></div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <h2>Selected work</h2>
+    <p class="section-sub">The strongest, most complete things the studio has shipped.</p>
+    <div class="work-group">
+      <div class="projects-grid featured" id="featured-grid"></div>
     </div>
   </div>
 </section>
 
-<section id="projects">
+<section id="experiments">
   <div class="wrap">
-    <h2>Projects</h2>
-    <p class="section-sub">A selection of projects I’m building and rebuilding as I level up.</p>
-    <div class="projects-grid" id="projects-grid"></div>
+    <h2>Experiments</h2>
+    <p class="section-sub">Smaller prototypes and learning projects, in progress or exploratory by nature.</p>
+    <div class="projects-grid" id="experiments-grid"></div>
+    <div id="archive-toggle-wrap"></div>
+    <div class="projects-grid" id="archive-grid" hidden></div>
   </div>
 </section>
 
 <section id="products">
   <div class="wrap">
-    <h2>Products</h2>
-    <p class="section-sub">Tools and digital products will live here as I start shipping them.</p>
-    <div class="products-list" id="products-list"></div>
-    <div class="games-placeholder">More tools and games coming soon.</div>
+    <h2>Made to be useful.</h2>
+    <p class="section-sub">Practical digital products designed to make creative work simpler, clearer, and more consistent.</p>
+    <div class="product-feature" id="product-feature"></div>
   </div>
 </section>
 
-<section id="linkedin">
+<section id="about">
   <div class="wrap">
-    <h2>Latest post</h2>
-    <p class="section-sub">This space will feature selected writing and build updates as I start posting consistently.</p>
-    <div class="li-card" id="li-embed-container">
-      <p style="color: var(--muted); margin: 0;">LinkedIn updates will appear here once I start publishing them.</p>
+    <h2>About</h2>
+    <p class="about-text">KamNej is an independent creative studio founded by Kamal Jena. The studio explores ideas through digital products, software, and games — from practical tools and creator resources to experiments that may become something bigger. Some things are built to be useful. Others are built to be explored.</p>
+    <div class="founder-block">
+      <img id="about-photo" src="images/port/profile-pic.webp" width="84" height="84" alt="Portrait of Kamal Jena">
+      <div class="founder-copy">
+        <h3>Built by Kamal Jena.</h3>
+        <div class="founder-links">
+          <a href="https://linkedin.com/in/kamal-kumar-jena" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/Kamal-Kumar-Jena" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://notionbykamnej.gumroad.com/" target="_blank" rel="noopener">Gumroad</a>
+          <a href="mailto:kamaljena2304@gmail.com">Email</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+<section id="updates"></section>
+
 <section class="terminal-section" id="terminal">
   <div class="wrap">
-    <h2>Try it</h2>
-    <p class="section-sub">Type <code>help</code> to see what this does.</p>
+    <h2>Inside KamNej</h2>
+    <p class="section-sub">A small terminal easter egg. Type <code>help</code> to see what it does — everything here is also available in the normal navigation above.</p>
     <div class="term-window">
       <div class="term-chrome">
         <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
       </div>
-      <div id="term-output"></div>
+      <div id="term-output" role="log" aria-live="polite"></div>
       <div class="term-input-row">
         <span class="term-prompt">kamnej&gt;</span>
         <input id="term-input" type="text" autocomplete="off" spellcheck="false" aria-label="Terminal command input">
@@ -492,126 +701,326 @@
 
 <footer>
   <div class="wrap">
-    <span>© <span id="year"></span> Kamnej</span>
+    <span>© <span id="year"></span> KamNej</span>
     <div class="foot-links">
       <a href="mailto:kamaljena2304@gmail.com">Email</a>
       <a href="https://linkedin.com/in/kamal-kumar-jena" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/Kamal-Kumar-Jena" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://notionbykamnej.gumroad.com/" target="_blank" rel="noopener">Gumroad</a>
     </div>
   </div>
 </footer>
-
-<!-- ADMIN PANEL: only appears when the URL has ?admin=true at the end -->
-<div id="admin-overlay" style="display:none;">
-  <div class="admin-box">
-
-    <div id="admin-login">
-      <h2>Admin</h2>
-      <p class="section-sub">This is a soft gate, not real security — anyone who reads the page's code can find the password. Don't put anything truly sensitive behind it.</p>
-      <label for="admin-pass">Password</label>
-      <input type="password" id="admin-pass" autocomplete="off">
-      <div class="admin-error" id="admin-error">Wrong password.</div>
-      <button class="btn primary" id="admin-login-btn">Enter</button>
-    </div>
-
-    <div id="admin-form" style="display:none;">
-      <h2>Update LinkedIn post</h2>
-      <p class="section-sub">Paste a LinkedIn embed here when you have a post you want featured.</p>
-
-      <label for="admin-embed">LinkedIn embed code</label>
-      <textarea id="admin-embed" placeholder="Paste the full embed code from LinkedIn's 'Embed this post' option" style="min-height: 140px;"></textarea>
-
-      <button class="btn primary" id="admin-generate-btn">Generate code</button>
-      <button class="btn ghost" id="admin-close-btn">Close</button>
-
-      <div id="admin-output"></div>
-
-      <p class="section-sub" style="margin-top:18px; margin-bottom:0;">
-        Once you've copied the code above: <a href="https://github.com/Kamal-Kumar-Jena" target="_blank" rel="noopener" style="color: var(--accent);">open your GitHub profile →</a> and paste it in via "Add file → Upload files", or edit the file directly on GitHub.
-      </p>
-    </div>
-
-  </div>
-</div>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
   // ---- Mobile nav toggle ----
   const navToggle = document.getElementById('nav-toggle');
-  const navLinks = document.getElementById('nav-links');
+  const navRight = document.getElementById('nav-right');
   navToggle.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
+    const isOpen = navRight.classList.toggle('open');
     navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
-  navLinks.querySelectorAll('a').forEach(link => {
+  navRight.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
+      navRight.classList.remove('open');
       navToggle.setAttribute('aria-expanded', 'false');
     });
   });
 
-  // ---- EDIT THIS: your real GitHub projects ----
-  // Set "repo" to your real repo URL once it exists. Leave it as null to show "Coming soon" instead of a link.
-  const projects = [
-    { name: "Calculator v2", desc: "A cleaner desktop calculator rebuilt with a more polished GUI and better interaction.", tags: ["Python", "CustomTkinter", "GUI"], repo: null, size: "wide" },
-    { name: "Weather App v2", desc: "A planned web-first weather app focused on a cleaner interface and real-time API data.", tags: ["HTML", "CSS", "JavaScript", "API"], repo: null, size: "narrow" },
-    { name: "Quiz App v2", desc: "A planned rebuild with a stronger data layer, REST APIs, and a more complete quiz experience.", tags: ["Python", "Flask", "SQLite", "REST API"], repo: null, size: "" },
-    { name: "Password Generator", desc: "A practical utility for generating customizable passwords while learning cleaner project structure.", tags: ["Python", "Security Basics", "GUI"], repo: null, size: "narrow" },
-    { name: "To-Do App", desc: "A simple task-management project designed to practice CRUD flows, state, and a clean UI.", tags: ["HTML", "CSS", "JavaScript"], repo: null, size: "narrow" },
-    { name: "Student Helper", desc: "An earlier learning project kept as an archive to document where the coding journey started.", tags: ["Python", "Tkinter", "Archive"], repo: "https://github.com/Kamal-Kumar-Jena-2308/TWT-Code-Jam-by-Awesome-Pythoners--Theme-For-Students", size: "wide" },
+  // ---- Small helper: escape text before it goes into innerHTML, since
+  // some of these strings (tags, names) could contain characters that
+  // would otherwise be interpreted as markup. ----
+  function esc(str) {
+    const div = document.createElement('div');
+    div.textContent = String(str);
+    return div.innerHTML;
+  }
+
+  // ===================================================================
+  // CONTENT DATA — edit these arrays to update the site. Nothing else
+  // in the code needs to change when you add, remove, or edit an entry.
+  //
+  // Project fields: name, description, category, tags, status, image
+  // (optional path, e.g. "images/projects/foo.webp"), repo, demo.
+  // status: "Live" | "In progress" | "Experiment" | "Archived"
+  // Leave repo/demo unset (null) to show "In progress" instead of a link.
+  // ===================================================================
+
+  const categories = [
+    {
+      title: "Digital Products",
+      description: "Notion templates, creator tools, and practical digital resources.",
+      status: null
+    },
+    {
+      title: "Software",
+      description: "Websites, apps, utilities, AI experiments, and technical projects.",
+      status: null
+    },
+    {
+      title: "Games",
+      description: "Interactive worlds, prototypes, and original game ideas.",
+      status: "Coming later"
+    }
   ];
 
-  const grid = document.getElementById('projects-grid');
-  projects.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'project-card' + (p.size ? ' ' + p.size : '');
-    const linkHtml = p.repo
-      ? `<a class="repo-link" href="${p.repo}" target="_blank" rel="noopener">View repo →</a>`
-      : `<span class="repo-link muted">Coming soon</span>`;
-    card.innerHTML = `
-      <h3>${p.name}</h3>
-      <p>${p.desc}</p>
-      <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-      ${linkHtml}
-    `;
-    grid.appendChild(card);
-  });
+  const featuredProjects = [
+    {
+      name: "KamNej Website",
+      description: "The studio website for KamNej, designed as a home for digital products, software, experiments, and future games.",
+      category: "Studio / Website",
+      tags: ["HTML", "CSS", "JavaScript", "Vercel"],
+      status: "Live",
+      image: 'images/projects/website.png',
+      repo: "https://github.com/Kamal-Kumar-Jena/Portfolio",
+      demo: "https://kamnej.vercel.app"
+    }
+  ];
 
-  // ---- EDIT THIS: your real Gumroad products ----
+  const experimentProjects = [
+    {
+      name: "Calculator v2",
+      description: "A desktop calculator rebuilt with a cleaner interface and improved interaction.",
+      category: "Software",
+      tags: ["Python", "CustomTkinter", "GUI"],
+      status: "In progress",
+      image: null,
+      repo: null,
+      demo: null
+    },
+    {
+      name: "Quiz App v2",
+      description: "A rebuild with a stronger data layer, REST APIs, and a more complete quiz experience.",
+      category: "Software",
+      tags: ["Python", "Flask", "SQLite", "REST API"],
+      status: "In progress",
+      image: null,
+      repo: null,
+      demo: null
+    },
+    {
+      name: "Weather App v2",
+      description: "A web-first weather app focused on a cleaner interface and real-time API data.",
+      category: "Software",
+      tags: ["HTML", "CSS", "JavaScript", "API"],
+      status: "Experiment",
+      image: null,
+      repo: null,
+      demo: null
+    },
+    {
+      name: "Password Generator",
+      description: "A practical utility for generating customizable passwords, built while learning cleaner project structure.",
+      category: "Software",
+      tags: ["Python", "Security basics", "GUI"],
+      status: "Experiment",
+      image: null,
+      repo: null,
+      demo: null
+    },
+    {
+      name: "To-Do App",
+      description: "A task-management project used to practice CRUD flows, state, and a clean UI.",
+      category: "Software",
+      tags: ["HTML", "CSS", "JavaScript"],
+      status: "Experiment",
+      image: null,
+      repo: null,
+      demo: null
+    }
+  ];
+
+  // Shown behind a "View archive" toggle rather than as a full section —
+  // there isn't enough here yet to earn its own place on the homepage.
+  const archiveProjects = [
+    {
+      name: "Student Helper",
+      description: "An earlier learning project kept as an archive to document where the coding journey started.",
+      category: "Software",
+      tags: ["Python", "Tkinter"],
+      status: "Archived",
+      image: null,
+      repo: "https://github.com/Kamal-Kumar-Jena-2308/TWT-Code-Jam-by-Awesome-Pythoners--Theme-For-Students",
+      demo: null
+    }
+  ];
+
   const products = [
-    { name: "Indian Creator Starter Pack", price: "₹799", desc: "Notion bundle — content calendar, brand tone guide, caption templates.", link: "https://notionbyneel.gumroad.com/l/nyyjd" },
+    {
+      name: "Creator Starter Pack",
+      subtitle: "Notion Templates for Creators",
+      description: "Three plug-and-play Notion tools to plan smarter, define your brand voice, and create consistently without burning out.",
+      included: ["Content calendar", "Brand tone guide", "Caption templates pack"],
+      image: 'images/products/notion-card.png',
+      link: "https://notionbykamnej.gumroad.com/"
+    }
   ];
-  const list = document.getElementById('products-list');
-  products.forEach(p => {
+
+  // Set to null to hide the Build Updates section entirely (e.g. if there's
+  // no post worth featuring right now).
+  const buildUpdate = {
+    text: "Rebuilding KamNej around a new independent studio identity.",
+    url: "https://linkedin.com/in/kamal-kumar-jena"
+  };
+
+  // ---- Render studio categories (numbered, editorial list) ----
+  const categoriesList = document.getElementById('categories-list');
+  categories.forEach((c, i) => {
     const row = document.createElement('div');
-    row.className = 'product-row';
+    row.className = 'category-row';
     row.innerHTML = `
+      <span class="category-num">0${i + 1}</span>
       <div>
-        <h3>${p.name}</h3>
-        <p>${p.desc}</p>
+        <h3>${esc(c.title)}</h3>
+        <p>${esc(c.description)}</p>
       </div>
-      <a class="price" href="${p.link}" target="_blank" rel="noopener">${p.price} →</a>
+      ${c.status ? `<span class="category-status">${esc(c.status)}</span>` : '<span></span>'}
     `;
-    list.appendChild(row);
+    categoriesList.appendChild(row);
   });
 
-  // ---- EDIT THIS: your latest LinkedIn post ----
-  // Paste your LinkedIn "Embed this post" code here (or use the admin panel to generate this line).
-  document.getElementById('li-embed-container').innerHTML = `<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7504361832980058112?collapsed=1" height="628" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>`;
+  // ---- Render project cards ----
+  function statusClass(status) {
+    const s = status.toLowerCase();
+    if (s === "live") return "live";
+    if (s === "in progress") return "progress";
+    if (s === "archived") return "archived";
+    return "experiment";
+  }
+
+  function shotHtml(p) {
+    if (p.image) {
+      return `<img src="${esc(p.image)}" alt="Screenshot of ${esc(p.name)}" loading="lazy" width="640" height="360">`;
+    }
+    return `<div class="shot-fallback">Preview coming soon</div>`;
+  }
+
+  function renderProjects(list, containerId, featured) {
+    const grid = document.getElementById(containerId);
+    if (!grid) return;
+    list.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'project-card' + (featured ? ' featured' : '');
+
+      const link = p.demo || p.repo;
+      const linkHtml = [];
+      if (p.demo) linkHtml.push(`<a class="repo-link" href="${esc(p.demo)}" target="_blank" rel="noopener">Visit site →</a>`);
+      if (p.repo) linkHtml.push(`<a class="repo-link" href="${esc(p.repo)}" target="_blank" rel="noopener">View source →</a>`);
+      if (!link) linkHtml.push(`<span class="repo-link muted">In progress</span>`);
+
+      card.innerHTML = `
+        <div class="project-shot">${shotHtml(p)}</div>
+        <div class="project-body">
+          <div class="project-top">
+            <h4>${esc(p.name)}</h4>
+            <span class="status ${statusClass(p.status)}">${esc(p.status)}</span>
+          </div>
+          <p class="project-category">${esc(p.category)}</p>
+          <p class="desc">${esc(p.description)}</p>
+          <div class="tags">${p.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+          <div class="project-links">${linkHtml.join('')}</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  renderProjects(featuredProjects, 'featured-grid', true);
+  renderProjects(experimentProjects, 'experiments-grid', false);
+  renderProjects(archiveProjects, 'archive-grid', false);
+
+  // ---- Archive: hidden behind a small toggle rather than its own section ----
+  const archiveWrap = document.getElementById('archive-toggle-wrap');
+  const archiveGrid = document.getElementById('archive-grid');
+  if (archiveProjects.length) {
+    const toggle = document.createElement('button');
+    toggle.className = 'archive-toggle';
+    toggle.type = 'button';
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.textContent = `View archive (${archiveProjects.length}) →`;
+    toggle.addEventListener('click', () => {
+      const isHidden = archiveGrid.hasAttribute('hidden');
+      if (isHidden) {
+        archiveGrid.removeAttribute('hidden');
+        toggle.textContent = 'Hide archive';
+        toggle.setAttribute('aria-expanded', 'true');
+      } else {
+        archiveGrid.setAttribute('hidden', '');
+        toggle.textContent = `View archive (${archiveProjects.length}) →`;
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    archiveWrap.appendChild(toggle);
+  }
+
+  // ---- Render featured product: image-first, editorial layout ----
+  const productFeature = document.getElementById('product-feature');
+  products.forEach(p => {
+    const coverAlt = `${p.name} — ${p.subtitle}`;
+    const imageHtml = p.image
+      ? `<img src="${esc(p.image)}" alt="${esc(coverAlt)}" class="product-image" loading="lazy">`
+      : `<div class="product-image-fallback">Cover coming soon</div>`;
+    const includedHtml = p.included && p.included.length
+      ? `<ul class="product-included">${p.included.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`
+      : '';
+    productFeature.innerHTML += `
+      <div class="product-copy">
+        <span class="product-label">Digital Product</span>
+        <h3>${esc(p.name)} — ${esc(p.subtitle)}</h3>
+        <p>${esc(p.description)}</p>
+      </div>
+      <div class="product-image-wrap">${imageHtml}</div>
+      ${includedHtml}
+      <a class="btn primary product-cta" href="${esc(p.link)}" target="_blank" rel="noopener">View on Gumroad</a>
+    `;
+  });
+
+  // ---- Build updates: native card, no iframe ----
+  const updatesSection = document.getElementById('updates');
+  if (buildUpdate) {
+    updatesSection.innerHTML = `
+      <div class="wrap">
+        <h2>Build updates</h2>
+        <div class="update-card">
+          <p class="update-eyebrow">BUILD UPDATE</p>
+          <p class="update-text">${esc(buildUpdate.text)}</p>
+          <a class="update-link" href="${esc(buildUpdate.url)}" target="_blank" rel="noopener">Read on LinkedIn →</a>
+        </div>
+      </div>
+    `;
+  } else {
+    updatesSection.remove();
+  }
+
+  // ---- Nav active-state on scroll ----
+  const navAnchors = Array.from(document.querySelectorAll('.nav-links a'));
+  const navSections = navAnchors
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  function updateActiveNav() {
+    let current = null;
+    navSections.forEach(sec => {
+      if (sec.getBoundingClientRect().top < 120) current = sec;
+    });
+    navAnchors.forEach(a => {
+      const match = current && a.getAttribute('href') === '#' + current.id;
+      a.classList.toggle('active', !!match);
+    });
+  }
 
   // ---- Terminal ----
   const output = document.getElementById('term-output');
   const input = document.getElementById('term-input');
 
-  // Edit this with your real contact details
   const contactInfo = {
     email: "kamaljena2304@gmail.com",
     linkedin: "https://linkedin.com/in/kamal-kumar-jena",
     github: "https://github.com/Kamal-Kumar-Jena"
   };
 
-  function printLine(text, cls = '') {
+  function printLine(text, cls) {
     const div = document.createElement('div');
     div.className = 'line' + (cls ? ' ' + cls : '');
     div.textContent = text;
@@ -622,6 +1031,9 @@
   function printHelp() {
     printLine("Available commands:");
     printLine("  help       show this list");
+    printLine("  about      what KamNej is");
+    printLine("  work       jump to selected work");
+    printLine("  products   jump to products");
     printLine("  contact    how to reach me");
     printLine("  clear      clear the screen");
   }
@@ -635,6 +1047,17 @@
     switch (cmd.toLowerCase()) {
       case "help":
         printHelp();
+        break;
+      case "about":
+        printLine("KamNej is an independent creative studio building digital products, software, and games.");
+        break;
+      case "work":
+        document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
+        printLine("Jumping to Selected work…", "muted");
+        break;
+      case "products":
+        document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        printLine("Jumping to Products…", "muted");
         break;
       case "clear":
         output.innerHTML = "";
@@ -660,59 +1083,29 @@
 
   document.querySelector('.term-window').addEventListener('click', () => input.focus());
 
-  // ---- Scroll-linked background crossfade ----
+  // ---- Scroll-linked background crossfade (day → night), bounded to the
+  // hero/intro area rather than running across the whole page length ----
   const bgLayer2 = document.getElementById('bg-layer-2');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function updateBackgroundFade() {
-    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
-    bgLayer2.style.opacity = Math.min(Math.max(progress, 0), 1);
+    const fadeDistance = window.innerHeight * 1.5;
+    const progress = fadeDistance > 0 ? Math.min(window.scrollY / fadeDistance, 1) : 1;
+    bgLayer2.style.opacity = progress;
+  }
+
+  function onScroll() {
+    updateBackgroundFade();
+    updateActiveNav();
   }
 
   if (!prefersReducedMotion) {
-    window.addEventListener('scroll', updateBackgroundFade, { passive: true });
-    updateBackgroundFade();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   } else {
-    // Respect reduced-motion: just show the second image statically, no fade animation
     bgLayer2.style.opacity = 0;
+    updateActiveNav();
   }
-
-  // ---- Admin panel ----
-  // Change this password to whatever you like. Remember: not real security (see note in the panel).
-  const ADMIN_PASSWORD = "kamnej2026";
-
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('admin') === 'true') {
-    document.getElementById('admin-overlay').style.display = 'flex';
-  }
-
-  document.getElementById('admin-login-btn').addEventListener('click', () => {
-    const entered = document.getElementById('admin-pass').value;
-    if (entered === ADMIN_PASSWORD) {
-      document.getElementById('admin-login').style.display = 'none';
-      document.getElementById('admin-form').style.display = 'block';
-    } else {
-      document.getElementById('admin-error').style.display = 'block';
-    }
-  });
-
-  document.getElementById('admin-close-btn').addEventListener('click', () => {
-    document.getElementById('admin-overlay').style.display = 'none';
-  });
-
-  document.getElementById('admin-generate-btn').addEventListener('click', () => {
-    const embedCode = document.getElementById('admin-embed').value.trim() || "[PASTE YOUR LINKEDIN EMBED CODE HERE]";
-
-    // Escape backticks and ${...} so the pasted embed code can't break out of the template literal
-    const escaped = embedCode.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
-
-    const code = `document.getElementById('li-embed-container').innerHTML = \`${escaped}\`;`;
-
-    const output = document.getElementById('admin-output');
-    output.textContent = code;
-    output.style.display = 'block';
-  });
 </script>
 
 </body>
